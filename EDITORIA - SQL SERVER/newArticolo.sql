@@ -1,4 +1,4 @@
-﻿--drop table ARTICOLI;
+﻿	--drop table ARTICOLI;
 -- IF NOT EXISTS(SELECT * FROM sys.tables WHERE name = 'ARTICOLI')
 --    BEGIN
 --        CREATE TABLE ARTICOLI(

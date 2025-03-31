@@ -156,7 +156,7 @@ namespace EDITORIA___SQL_SERVER
                 MessageBox.Show(ex.Message);
             }
         }
-        public string Abbonato { get => cmbAbbonati.SelectedText; }
+        public int Abbonato { get => (int)cmbAbbonati.SelectedValue; }
         private void btnNumeroPubblicazioni_Click(object sender, EventArgs e)
         {
             try
@@ -167,7 +167,20 @@ namespace EDITORIA___SQL_SERVER
                 cmd.CommandText = "SELECT COUNT(*) FROM ABBONAMENTI WHERE CODABBONATO=@abbonato";
                 cmd.Parameters.AddWithValue("@abbonato", Abbonato);
 
-                MessageBox.Show($"L'abbonato [{Abbonato}] segue [{cmd.ExecuteScalar()}] riviste");
+                MessageBox.Show($"L'abbonato [{cmbAbbonati.Text}] segue [{cmd.ExecuteScalar()}] riviste");
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+        }
+
+        private void btnRimanentiQuery_Click(object sender, EventArgs e)
+        {
+            try
+            {
+
+                MessageBox.Show($"L'abbonato [{cmbAbbonati.Text}] segue [{cmd.ExecuteScalar()}] riviste");
             }
             catch (Exception ex)
             {

@@ -40,6 +40,7 @@
             this.btnNumeroPubblicazioni = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
             this.cmbAbbonati = new System.Windows.Forms.ComboBox();
+            this.btnRimanentiQuery = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.nudAnno)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgvArticoliAnno)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgvAbbonamentiAnnuali)).BeginInit();
@@ -136,7 +137,7 @@
             // 
             // btnNumeroPubblicazioni
             // 
-            this.btnNumeroPubblicazioni.Location = new System.Drawing.Point(528, 111);
+            this.btnNumeroPubblicazioni.Location = new System.Drawing.Point(523, 52);
             this.btnNumeroPubblicazioni.Name = "btnNumeroPubblicazioni";
             this.btnNumeroPubblicazioni.Size = new System.Drawing.Size(216, 34);
             this.btnNumeroPubblicazioni.TabIndex = 12;
@@ -147,7 +148,7 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(525, 68);
+            this.label1.Location = new System.Drawing.Point(520, 9);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(61, 13);
             this.label1.TabIndex = 14;
@@ -157,16 +158,27 @@
             // 
             this.cmbAbbonati.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cmbAbbonati.FormattingEnabled = true;
-            this.cmbAbbonati.Location = new System.Drawing.Point(528, 84);
+            this.cmbAbbonati.Location = new System.Drawing.Point(523, 25);
             this.cmbAbbonati.Name = "cmbAbbonati";
             this.cmbAbbonati.Size = new System.Drawing.Size(216, 21);
             this.cmbAbbonati.TabIndex = 13;
+            // 
+            // btnRimanentiQuery
+            // 
+            this.btnRimanentiQuery.Location = new System.Drawing.Point(523, 404);
+            this.btnRimanentiQuery.Name = "btnRimanentiQuery";
+            this.btnRimanentiQuery.Size = new System.Drawing.Size(216, 34);
+            this.btnRimanentiQuery.TabIndex = 15;
+            this.btnRimanentiQuery.Text = "QUERY RIMANENTI";
+            this.btnRimanentiQuery.UseVisualStyleBackColor = true;
+            this.btnRimanentiQuery.Click += new System.EventHandler(this.btnRimanentiQuery_Click);
             // 
             // frmMenu
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 450);
+            this.ClientSize = new System.Drawing.Size(754, 450);
+            this.Controls.Add(this.btnRimanentiQuery);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.cmbAbbonati);
             this.Controls.Add(this.btnNumeroPubblicazioni);
@@ -203,6 +215,7 @@
         private System.Windows.Forms.Button btnNumeroPubblicazioni;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.ComboBox cmbAbbonati;
+        private System.Windows.Forms.Button btnRimanentiQuery;
     }
 }
 

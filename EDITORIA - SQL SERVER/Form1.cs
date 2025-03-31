@@ -23,6 +23,7 @@ namespace EDITORIA___SQL_SERVER
                 lblArticoliAnno.Text = lblArticoliAnno.Text.Replace("??", value);
             }
         }
+        public int Pubblicazione { get => (int)cmbPubblicazioni.SelectedValue; }
         private void btnQuery1_Click(object sender, EventArgs e)
         {
 
@@ -31,7 +32,6 @@ namespace EDITORIA___SQL_SERVER
             {
             //variables utili
                 int anno= (int)nudAnno.Value;
-                int pubblicazione = (int)cmbPubblicazione.SelectedValue;
             //query
                 cmd = new SqlCommand();
                 cmd.Connection = cn;//Connessione fatta nel foarm load
@@ -39,7 +39,7 @@ namespace EDITORIA___SQL_SERVER
                 cmd.CommandText = "SELECT * FROM ARTICOLI WHERE annoPubblicazione=@anno AND codPUBBLICAZIONi=@pubblicazione";
                
                 cmd.Parameters.AddWithValue("@anno", anno);
-                cmd.Parameters.AddWithValue("@pubblicazione", pubblicazione);
+                cmd.Parameters.AddWithValue("@pubblicazione", Pubblicazione);
                 //cmd.ExecuteNonQuery();
 
                 adp = new SqlDataAdapter(cmd);
@@ -76,12 +76,38 @@ namespace EDITORIA___SQL_SERVER
                 MessageBox.Show("Connessione con il database " + dbName + " è riuscita");
                 //carica i CONTROLLI
                 popolaCmbPubblicazioni();
+                popolaCmbAbbonati();
             }
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message);
             }
 
+        }
+
+        private void popolaCmbAbbonati()
+        {
+            DataTable dt = new DataTable();
+            try
+            {
+                cmd = new SqlCommand();
+                cmd.Connection = cn;//Connessione fatta nel foarm loaf
+                cmd.CommandType = CommandType.Text;
+
+                cmd.CommandText = "SELECT cognome,nome,cognome+' '+nome as 'nominativo',codAbbonato FROM ABBONATI ORDER BY COGNOME,NOME";
+                adp = new SqlDataAdapter(cmd);
+                adp.Fill(dt);
+
+                cmbAbbonati.DataSource = null;
+                cmbAbbonati.DataSource = dt;
+                cmbAbbonati.DisplayMember = "nominativo";
+                cmbAbbonati.ValueMember = "codAbbonato";    //PK per quando inseriremo il voto
+                if (dt.Rows.Count == 0) MessageBox.Show("NESSUN DATO SODDISFA L'ISTRUZIONE SCRITTA");
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
         }
 
         private void popolaCmbPubblicazioni()
@@ -97,11 +123,51 @@ namespace EDITORIA___SQL_SERVER
                 adp = new SqlDataAdapter(cmd);
                 adp.Fill(dt);
 
-                cmbPubblicazione.DataSource = null;
-                cmbPubblicazione.DataSource = dt;
-                cmbPubblicazione.DisplayMember = "TITOLO";
-                cmbPubblicazione.ValueMember = "codPubblicazioni";    //PK per quando inseriremo il voto
+                cmbPubblicazioni.DataSource = null;
+                cmbPubblicazioni.DataSource = dt;
+                cmbPubblicazioni.DisplayMember = "TITOLO";
+                cmbPubblicazioni.ValueMember = "codPubblicazioni";    //PK per quando inseriremo il voto
                 if (dt.Rows.Count == 0) MessageBox.Show("NESSUN DATO SODDISFA L'ISTRUZIONE SCRITTA");
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+        }
+
+        private void btnAbbonamentiAnnuali_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                DataTable dataTable = new DataTable();
+
+                cmd = new SqlCommand();
+                cmd.Connection = cn;
+                cmd.CommandType= CommandType.Text;
+
+                cmd.CommandText = "SELECT * FROM ABBONAMENTI WHERE TIPOABBONAMENTO='ANNUALE'";
+                adp = new SqlDataAdapter(cmd);
+                adp.Fill(dataTable);
+                dgvAbbonamentiAnnuali.DataSource = dataTable;
+                if (dataTable.Rows.Count == 0) MessageBox.Show("NESSUN DATO SODDISFA L'ISTRUZIONE SCRITTA");
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+        }
+        public string Abbonato { get => cmbAbbonati.SelectedText; }
+        private void btnNumeroPubblicazioni_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                cmd = new SqlCommand();
+                cmd.Connection = cn;
+                cmd.CommandType=CommandType.Text;
+                cmd.CommandText = "SELECT COUNT(*) FROM ABBONAMENTI WHERE CODABBONATO=@abbonato";
+                cmd.Parameters.AddWithValue("@abbonato", Abbonato);
+
+                MessageBox.Show($"L'abbonato [{Abbonato}] segue [{cmd.ExecuteScalar()}] riviste");
             }
             catch (Exception ex)
             {
